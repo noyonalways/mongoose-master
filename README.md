@@ -16,7 +16,19 @@
     </h3>
 </p>
 
-## Table of Contents
+## What will be learn?
+
+- MongoDB Basic Queries
+- Powerful Aggregation Framework
+- Indexing for faster Queries
+- Express.js Core Concepts
+- Mongoose Fundamentals
+- CRUD Operations using Express, Mongoose & TypeScript
+- Assignment 2
+
+## Modules
+
+- [In-Depth Exploration of MongoDB Queries](./module-5/README.md)
 
 ## Contact
 
