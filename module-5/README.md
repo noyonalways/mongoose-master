@@ -34,6 +34,7 @@
 - [Array Query Operator: $all, $elemMatch](#array-query-operator-all-elemmatch)
 - [Field Update Operators: $set, $addToSet, $push](#field-update-operators-set-addtoset-push)
   - [$each](#each)
+- [$unset, $pop, $pull, $pullAll](#unset-pop-pull-pullall)
 
 # Introduction
 
@@ -406,5 +407,73 @@ db.users.updateOne(
             $each: ["Photography", "Programming"]
         }
     } }
+)
+```
+
+# $unset, $pop, $pull, $pullAll
+
+The [$unset](https://www.mongodb.com/docs/manual/reference/operator/update/unset/#mongodb-update-up.-unset) operator deletes a particular field.
+
+`$unset` remove the object
+
+```bash
+db.users.updateOne(
+    {_id: ObjectId("6406ad65fc13ae5a400000c7")},
+    {
+        $unset: {age: 1 }
+    }
+)
+```
+
+The [pop](https://www.mongodb.com/docs/manual/reference/operator/update/pop/#mongodb-update-up.-pop) operator removes the first or last element of an array. Pass [$pop](https://www.mongodb.com/docs/manual/reference/operator/update/pop/#mongodb-update-up.-pop) a value of `-1` to remove the first element of an array and `1` to remove the last element in an array.
+
+The [$pop](https://www.mongodb.com/docs/manual/reference/operator/update/pop/#mongodb-update-up.-pop) operator has the form:
+
+```bash
+{$pop: { <field>:<-1 | 1>, ... } }
+```
+
+To specify a `<field>` in an embedded document or in an array, use [dot notation.](https://www.mongodb.com/docs/manual/core/document/#std-label-document-dot-notation)
+
+remove the last element of an array
+
+```bash
+db.users.updateOne(
+    {_id: ObjectId("6406ad65fc13ae5a400000c7")},
+    {
+        $pop: {friends: 1 }
+    }
+)
+```
+
+The [$pull](https://www.mongodb.com/docs/manual/reference/operator/update/pull/#mongodb-update-up.-pull) operator removes from an existing array all instances of a value or values that match a specified condition.
+
+remove a specific element from an array
+
+```bash
+db.users.updateOne(
+    {_id: ObjectId("6406ad65fc13ae5a400000c7")},
+    {
+        $pull: {friends: "any-friend" }
+    }
+)
+```
+
+The [pullAll](https://www.mongodb.com/docs/manual/reference/operator/update/pullAll/#mongodb-update-up.-pullAll) operator removes all instances of the specified values from an existing array. Unlike the [pull](https://www.mongodb.com/docs/manual/reference/operator/update/pull/#mongodb-update-up.-pull) operator that removes elements by specifying a query, [pullAll](https://www.mongodb.com/docs/manual/reference/operator/update/pullAll/#mongodb-update-up.-pullAll) removes elements that match the listed values.
+
+The [$pullAll](https://www.mongodb.com/docs/manual/reference/operator/update/pullAll/#mongodb-update-up.-pullAll) operator has the form:
+
+```jsx
+{$pullAll: { <field1>: [ <value1>, <value2> ... ], ... } }
+```
+
+To specify a `<field>` in an embedded document or in an array, use [dot notation.](https://www.mongodb.com/docs/manual/core/document/#std-label-document-dot-notation)
+
+```bash
+db.users.updateOne(
+    {_id: ObjectId("6406ad65fc13ae5a400000c7")},
+    {
+        $pullAll: {friends: ["friend-one", "friend-two"] }
+    }
 )
 ```
