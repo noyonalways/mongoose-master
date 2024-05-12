@@ -35,6 +35,11 @@
 - [Field Update Operators: $set, $addToSet, $push](#field-update-operators-set-addtoset-push)
   - [$each](#each)
 - [$unset, $pop, $pull, $pullAll](#unset-pop-pull-pullall)
+- [More about $set, how to explore Documentation](#more-about-set-how-to-explore-documentation)
+  - [Update Documents in an Array](#update-documents-in-an-array)
+- [Delete documents, drop collection and how to explore by yourself](#delete-documents-drop-collection-and-how-to-explore-by-yourself)
+  - [Delete Documents](#delete-documents)
+  - [Drop Collection](#drop-collection)
 
 # Introduction
 
@@ -115,8 +120,8 @@ insert many:
 
 ```sh
 db.collectionName.insertMany([
-{name: "Complete Web Development"},
-{name: "Next Web Development"}
+ {name: "Complete Web Development"},
+ {name: "Next Web Development"}
 ])
 ```
 
@@ -429,7 +434,7 @@ The [pop](https://www.mongodb.com/docs/manual/reference/operator/update/pop/#mo
 
 The [$pop](https://www.mongodb.com/docs/manual/reference/operator/update/pop/#mongodb-update-up.-pop) operator has the form:
 
-```bash
+```sh
 {$pop: { <field>:<-1 | 1>, ... } }
 ```
 
@@ -437,7 +442,7 @@ To specify a `<field>` in an embedded document or in an array, use [dot notat
 
 remove the last element of an array
 
-```bash
+```sh
 db.users.updateOne(
     {_id: ObjectId("6406ad65fc13ae5a400000c7")},
     {
@@ -450,7 +455,7 @@ The [$pull](https://www.mongodb.com/docs/manual/reference/operator/update/pull/
 
 remove a specific element from an array
 
-```bash
+```sh
 db.users.updateOne(
     {_id: ObjectId("6406ad65fc13ae5a400000c7")},
     {
@@ -463,17 +468,98 @@ The [pullAll](https://www.mongodb.com/docs/manual/reference/operator/update/pul
 
 The [$pullAll](https://www.mongodb.com/docs/manual/reference/operator/update/pullAll/#mongodb-update-up.-pullAll) operator has the form:
 
-```jsx
+```sh
 {$pullAll: { <field1>: [ <value1>, <value2> ... ], ... } }
 ```
 
 To specify a `<field>` in an embedded document or in an array, use [dot notation.](https://www.mongodb.com/docs/manual/core/document/#std-label-document-dot-notation)
 
-```bash
+```sh
 db.users.updateOne(
     {_id: ObjectId("6406ad65fc13ae5a400000c7")},
     {
         $pullAll: {friends: ["friend-one", "friend-two"] }
     }
 )
+```
+
+# More about $set, how to explore Documentation
+
+We can also update primitive data by using `$set`
+
+```sh
+db.users.updateOne(
+    { _id: ObjectId("6406ad65fc13ae5a400000c7") },
+    {
+        $set: {
+            "address.city": "dhaka",
+            "address.postalCode":  "0000",
+            "address.country": "Bangladesh"
+        }
+    }
+)
+```
+
+### Update Documents in an Array
+
+The positional [$$](https://www.mongodb.com/docs/manual/reference/operator/update/positional/#mongodb-update-up) operator facilitates updates to arrays that contain embedded documents. Use the positional [$$](https://www.mongodb.com/docs/manual/reference/operator/update/positional/#mongodb-update-up.-) operator to access the fields in the embedded documents with the [dot notation](https://www.mongodb.com/docs/manual/core/document/#std-label-document-dot-notation) on the [$](https://www.mongodb.com/docs/manual/reference/operator/update/positional/#mongodb-update-up.-) operator.
+
+```sh
+db.users.updateOne(
+    { _id: ObjectId("6406ad65fc13ae5a400000c7"), "education.major": "Philosophy" },
+    {
+        $set: {
+            "education.$.major": "CSE"
+        }
+    }
+)
+```
+
+The [$inc](https://www.mongodb.com/docs/manual/reference/operator/update/inc/#mongodb-update-up.-inc) operator has the following form:
+
+```sh
+{$inc: { <field1>: <amount1>, <field2>: <amount2>, ... } }
+```
+
+To specify a `<field>` in an embedded document or in an array, use [dot notation.](https://www.mongodb.com/docs/manual/core/document/#std-label-document-dot-notation)
+
+```sh
+db.users.updateOne(
+    { _id: ObjectId("6406ad65fc13ae5a400000c5") },
+    {
+        $inc: {
+            age: 2
+        }
+
+    }
+)
+```
+
+# Delete documents, drop collection and how to explore by yourself
+
+### Delete Documents
+
+The MongoDB shell provides the following methods to delete documents from a collection:
+
+- To delete multiple documents, use [db.collection.deleteMany()](https://www.mongodb.com/docs/manual/reference/method/db.collection.deleteMany/#mongodb-method-db.collection.deleteMany)
+- To delete a single document, use [db.collection.deleteOne()](https://www.mongodb.com/docs/manual/reference/method/db.collection.deleteOne/#mongodb-method-db.collection.deleteOne)
+
+The examples on this page reference the Atlas [sample dataset](https://www.mongodb.com/docs/atlas/sample-data/). You can create a free Atlas cluster and populate that cluster with sample data to follow along with these examples. To learn more, see [Get Started with Atlas.](https://www.mongodb.com/docs/atlas/getting-started/)
+
+```sh
+db.users.deleteOne({_id: ObjectId("6406ad65fc13ae5a400000c7")})
+```
+
+### Drop Collection
+
+The [drop()](https://www.mongodb.com/docs/manual/reference/method/db.collection.drop/#mongodb-method-db.collection.drop) method has the following form:
+
+```sh
+db.collection.drop( {writeConcern: <document> } )
+```
+
+The [drop()](https://www.mongodb.com/docs/manual/reference/method/db.collection.drop/#mongodb-method-db.collection.drop) method takes an optional document with the following field:
+
+```sh
+db.test.drop( { writeConcern: { w: 1 } } )
 ```
