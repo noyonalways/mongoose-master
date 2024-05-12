@@ -4,6 +4,7 @@
 [![Instagram][instagram-shield]][instagram-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 [![VS Code Theme][vscode-shield]][vscode-theme-url]
+[![NPM Package][npm-shield]][npm-package-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -29,10 +30,12 @@
 ## Modules
 
 - [In-Depth Exploration of MongoDB Queries](./module-5/README.md)
+- [Mastering MongoDB Aggregation & Indexing](./module-6/README.md)
 
 ## Practice Tasks
 
 - [Practice Task 1](./practice-tasks/task-1/README.md)
+- [Practice Task 2](./practice-tasks/task-2/README.md)
 
 ## Contact
 
@@ -52,3 +55,5 @@
 [linkedin-url]: https://linkedin.com/in/noyonalways
 [vscode-shield]: https://img.shields.io/badge/-VS%20Code%20Theme-black.svg?style=round-square&logo=visualstudiocode&colorB=555
 [vscode-theme-url]: https://marketplace.visualstudio.com/items?itemName=noyonalways.codevibe-themes
+[npm-shield]: https://img.shields.io/badge/-Package-black.svg?style=round-square&logo=npm&color=555&logoColor=white
+[npm-package-url]: https://www.npmjs.com/package/the-magic-readme
