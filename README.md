@@ -10,7 +10,7 @@
 <p align="center">
     <img src="https://i.ibb.co/c64q254/noyon-logo-dark.png" alt="Logo" width="80" height="80" />
     <h3 align="center">
-        <a href="https://github.com/" target="_blank" >
+        <a href="https://github.com/noyonalways/mongoose-master" target="_blank" >
             Be A Mongoose Master
         </a>
     </h3>
@@ -29,6 +29,10 @@
 ## Modules
 
 - [In-Depth Exploration of MongoDB Queries](./module-5/README.md)
+
+## Practice Tasks
+
+- [Practice Task 1](./practice-tasks/task-1/README.md)
 
 ## Contact
 
