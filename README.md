@@ -37,6 +37,11 @@
 - [Practice Task 1](./practice-tasks/task-1/README.md)
 - [Practice Task 2](./practice-tasks/task-2/README.md)
 
+## Problems
+
+- [Queries](./problems/queries/README.md)
+- [Aggregation](./problems/aggregation/README.md)
+
 ## Contact
 
 - Email: [noyonrahman2003@gmail.com](mailto:noyonrahman2003@gmail.com)
