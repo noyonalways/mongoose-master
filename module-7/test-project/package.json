@@ -1,0 +1,23 @@
+{
+  "name": "test-project",
+  "version": "1.0.0",
+  "description": "This is test project for learn express with typescript",
+  "main": "./dist/server.js",
+  "scripts": {
+    "start": "node ./dist/server.js",
+    "dev": "nodemon",
+    "build": "tsc"
+  },
+  "author": "Noyon Rahman",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.12",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
