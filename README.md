@@ -32,6 +32,7 @@
 - [In-Depth Exploration of MongoDB Queries](./module-5/README.md)
 - [Mastering MongoDB Aggregation & Indexing](./module-6/README.md)
 - [Mastering The Foundation of Express](./module-7/README.md)
+- [Mastering The Core Concepts of Mongoose](./module-8/README.md)
 
 ## Practice Tasks
 
