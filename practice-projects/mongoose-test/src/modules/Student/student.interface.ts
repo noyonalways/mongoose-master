@@ -21,7 +21,7 @@ export interface ILocalGuardian {
 }
 
 export interface IStudent {
-  id: string;
+  studentId: string;
   name: IUserName;
   gender: "male" | "female";
   dateOfBirth?: string;

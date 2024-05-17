@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// routes
+// application routes
 app.use(router);
 
 export default app;
