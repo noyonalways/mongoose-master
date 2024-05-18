@@ -13,7 +13,6 @@ const userNameSchema = new Schema<IUserName>({
   },
   middleName: {
     type: String,
-    required: true,
   },
   lastName: {
     type: String,
@@ -69,10 +68,14 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
 
 const studentSchema = new Schema<IStudent>({
   studentId: { type: String },
-  name: userNameSchema,
+  name: {
+    type: userNameSchema,
+    required: true,
+    trim: true,
+  },
   gender: {
     type: String,
-    enum: ["male", "female"],
+    enum: ["male", "female", "other"],
     required: true,
   },
   dateOfBirth: {
@@ -104,14 +107,17 @@ const studentSchema = new Schema<IStudent>({
     required: true,
   },
   guardian: guardianSchema,
-  localGuardian: localGuardianSchema,
+  localGuardian: {
+    type: localGuardianSchema,
+    required: true,
+  },
   profileImage: {
     type: String,
-    required: true,
   },
   isActive: {
     type: String,
     enum: ["active", "inactive"],
+    default: "active",
     required: true,
   },
 });

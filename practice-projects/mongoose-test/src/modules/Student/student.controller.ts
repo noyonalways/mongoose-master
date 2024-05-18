@@ -15,7 +15,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const getAll = async (req: Request, res: Response, next: NextFunction) => {
+const getAll = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const result: IStudent[] = await studentService.getAll();
     res.status(201).json({
@@ -28,4 +28,21 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { create, getAll };
+const getSingle = async (req: Request, res: Response, next: NextFunction) => {
+  const { studentId } = req.params;
+  try {
+    const result: IStudent | null = await studentService.findByProperty(
+      "_id",
+      studentId,
+    );
+    res.status(201).json({
+      status: true,
+      message: "Student data retrieved successfully",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { create, getAll, getSingle };

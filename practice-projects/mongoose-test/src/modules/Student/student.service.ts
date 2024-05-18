@@ -10,4 +10,12 @@ const getAll = () => {
   return Student.find({});
 };
 
-export default { create, getAll };
+const findByProperty = (key: string, value: string) => {
+  if (key === "_id") {
+    return Student.findById(value);
+  } else {
+    return Student.findOne({ [key]: value });
+  }
+};
+
+export default { create, getAll, findByProperty };

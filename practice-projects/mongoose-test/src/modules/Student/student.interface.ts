@@ -1,6 +1,6 @@
 export interface IUserName {
   firstName: string;
-  middleName: string;
+  middleName?: string;
   lastName: string;
 }
 
@@ -23,7 +23,7 @@ export interface ILocalGuardian {
 export interface IStudent {
   studentId: string;
   name: IUserName;
-  gender: "male" | "female";
+  gender: "male" | "female" | "other";
   dateOfBirth?: string;
   email: string;
   contactNo: string;
@@ -33,6 +33,6 @@ export interface IStudent {
   permanentAddress: string;
   guardian: IGuardian;
   localGuardian: ILocalGuardian;
-  profileImage: string;
+  profileImage?: string;
   isActive: "active" | "inactive";
 }
