@@ -33,6 +33,7 @@
 - [Mastering MongoDB Aggregation & Indexing](./module-6/README.md)
 - [Mastering The Foundation of Express](./module-7/README.md)
 - [Mastering The Core Concepts of Mongoose](./module-8/README.md)
+- [Advanced CRUD with Express, Mongoose and Typescript || Quiz Challenge 1](./module-9/README.md)
 
 ## Practice Tasks
 
@@ -43,6 +44,11 @@
 
 - [Queries](./problems/queries/README.md)
 - [Aggregation](./problems/aggregation/README.md)
+
+## Projects
+
+- [test-project](./practice-projects/test-project/)
+- [mongoose-test](./practice-projects/mongoose-test/)
 
 ## Contact
 
