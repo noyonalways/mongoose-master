@@ -8,4 +8,9 @@ router
   .post(studentController.create)
   .get(studentController.getAll);
 
+router
+  .route("/students/:studentId")
+  .get(studentController.getSingle)
+  .delete(studentController.deleteSingle);
+
 export default router;

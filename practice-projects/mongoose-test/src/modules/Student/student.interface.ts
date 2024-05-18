@@ -35,4 +35,5 @@ export interface IStudent {
   localGuardian: ILocalGuardian;
   profileImage?: string;
   isActive: "active" | "inactive";
+  isDeleted: boolean;
 }

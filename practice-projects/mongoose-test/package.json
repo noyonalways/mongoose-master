@@ -8,8 +8,8 @@
     "start": "tsc && node ./dist/server.js",
     "lint": "npx eslint src",
     "lint:fix": "npx eslint src --fix",
-    "format": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
-    "format:check": "npx prettier --check src",
+    "format": "prettier --ignore-path .gitignore --write \"./**/*.+(js|ts|json)\"",
+    "format:check": "npx prettier --check ./",
     "build": "tsc"
   },
   "keywords": [],
@@ -37,6 +37,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.3.5",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "zod": "^3.23.8"
   }
 }

@@ -4,8 +4,8 @@ import { IStudent } from "./student.interface";
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await studentService.create(req.body);
-    res.status(201).json({
+    const result: IStudent = await studentService.create(req.body);
+    return res.status(201).json({
       status: true,
       message: "Student created successfully",
       data: result,
@@ -17,11 +17,12 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
 const getAll = async (_req: Request, res: Response, next: NextFunction) => {
   try {
-    const result: IStudent[] = await studentService.getAll();
-    res.status(201).json({
+    const students: IStudent[] = await studentService.getAll();
+    return res.status(200).json({
       status: true,
       message: "Student data retrieved successfully",
-      data: result,
+      count: students.length,
+      data: students,
     });
   } catch (error) {
     next(error);
@@ -31,18 +32,56 @@ const getAll = async (_req: Request, res: Response, next: NextFunction) => {
 const getSingle = async (req: Request, res: Response, next: NextFunction) => {
   const { studentId } = req.params;
   try {
-    const result: IStudent | null = await studentService.findByProperty(
-      "_id",
+    const student: IStudent | null = await studentService.findByProperty(
+      "studentId",
       studentId,
     );
-    res.status(201).json({
+
+    if (!student) {
+      return res.status(404).json({
+        status: false,
+        message: "Student not found",
+      });
+    }
+
+    return res.status(201).json({
       status: true,
       message: "Student data retrieved successfully",
-      data: result,
+      data: student,
     });
   } catch (error) {
     next(error);
   }
 };
 
-export default { create, getAll, getSingle };
+const deleteSingle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { studentId } = req.params;
+    const student: IStudent | null = await studentService.findByProperty(
+      "studentId",
+      studentId,
+    );
+
+    if (!student) {
+      return res.status(404).json({
+        status: false,
+        message: "Student not found",
+      });
+    }
+
+    const result = await studentService.deleteSingle(studentId);
+    return res.status(202).json({
+      status: true,
+      message: "Student deleted successfully",
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default { create, getAll, getSingle, deleteSingle };

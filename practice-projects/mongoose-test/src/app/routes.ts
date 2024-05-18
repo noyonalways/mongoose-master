@@ -1,5 +1,6 @@
-import { Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import studentRoutes from "../modules/Student/student.route";
+import { CustomError } from "../types";
 const router: Router = Router();
 
 router.get("/", (_req: Request, res: Response) => {
@@ -14,5 +15,25 @@ router.get("/health", (_req: Request, res: Response) => {
 
 // main routes
 router.use("/api/v1", studentRoutes);
+
+router.use((_req: Request, _res: Response, next: NextFunction) => {
+  const err: CustomError = new Error("Page not found");
+  err.status = 404;
+  next(err);
+});
+
+router.use(
+  (
+    error: CustomError,
+    _req: Request,
+    res: Response,
+    _next: NextFunction,
+  ): void => {
+    res.status(error.status || 500).json({
+      status: false,
+      message: error.message || "something went wrong",
+    });
+  },
+);
 
 export default router;

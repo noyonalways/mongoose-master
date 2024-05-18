@@ -67,7 +67,11 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
 });
 
 const studentSchema = new Schema<IStudent>({
-  studentId: { type: String },
+  studentId: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   name: {
     type: userNameSchema,
     required: true,
@@ -85,6 +89,7 @@ const studentSchema = new Schema<IStudent>({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   contactNo: {
     type: String,
@@ -120,6 +125,21 @@ const studentSchema = new Schema<IStudent>({
     default: "active",
     required: true,
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+// mongoose pre query middleware
+studentSchema.pre("find", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+studentSchema.pre("findOne", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
 });
 
 const Student = model<IStudent>("Student", studentSchema);

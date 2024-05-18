@@ -1,16 +1,19 @@
 import { IStudent } from "./student.interface";
 import Student from "./student.model";
 
-const create = (data: IStudent) => {
+const create = (data: IStudent): Promise<IStudent> => {
   const result = new Student({ ...data });
   return result.save();
 };
 
-const getAll = () => {
+const getAll = (): Promise<IStudent[]> => {
   return Student.find({});
 };
 
-const findByProperty = (key: string, value: string) => {
+const findByProperty = (
+  key: string,
+  value: string,
+): Promise<IStudent | null> => {
   if (key === "_id") {
     return Student.findById(value);
   } else {
@@ -18,4 +21,8 @@ const findByProperty = (key: string, value: string) => {
   }
 };
 
-export default { create, getAll, findByProperty };
+const deleteSingle = (studentId: string) => {
+  return Student.updateOne({ studentId }, { isDeleted: true });
+};
+
+export default { create, getAll, findByProperty, deleteSingle };
