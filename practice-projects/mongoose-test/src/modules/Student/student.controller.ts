@@ -1,10 +1,18 @@
 import { NextFunction, Request, Response } from "express";
 import studentService from "./student.service";
 import { IStudent } from "./student.interface";
+import studentSchema from "./student.validate";
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result: IStudent = await studentService.create(req.body);
+    const { data, error } = studentSchema.safeParse(req.body);
+    if (error) {
+      return res.status(400).json({
+        status: false,
+        message: error.issues[0].message,
+      });
+    }
+    const result: IStudent = await studentService.create({ ...data });
     return res.status(201).json({
       status: true,
       message: "Student created successfully",
@@ -44,7 +52,7 @@ const getSingle = async (req: Request, res: Response, next: NextFunction) => {
       });
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       status: true,
       message: "Student data retrieved successfully",
       data: student,

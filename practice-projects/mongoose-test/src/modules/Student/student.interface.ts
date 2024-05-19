@@ -34,6 +34,6 @@ export interface IStudent {
   guardian: IGuardian;
   localGuardian: ILocalGuardian;
   profileImage?: string;
-  isActive: "active" | "inactive";
-  isDeleted: boolean;
+  isActive?: "active" | "inactive";
+  isDeleted?: boolean;
 }

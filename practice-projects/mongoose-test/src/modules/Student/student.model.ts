@@ -10,6 +10,7 @@ const userNameSchema = new Schema<IUserName>({
   firstName: {
     type: String,
     required: true,
+    maxlength: [20, "firstName can't be more than 20 characters"],
   },
   middleName: {
     type: String,
@@ -17,6 +18,7 @@ const userNameSchema = new Schema<IUserName>({
   lastName: {
     type: String,
     required: true,
+    maxlength: [20, "lastName can't be more than 20 characters"],
   },
 });
 
@@ -123,7 +125,6 @@ const studentSchema = new Schema<IStudent>({
     type: String,
     enum: ["active", "inactive"],
     default: "active",
-    required: true,
   },
   isDeleted: {
     type: Boolean,
