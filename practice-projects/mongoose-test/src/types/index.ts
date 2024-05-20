@@ -1,4 +1,4 @@
-export type CustomError = {
+export type TCustomError = {
   status?: number;
   message: string;
 };

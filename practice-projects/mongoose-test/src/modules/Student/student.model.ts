@@ -4,7 +4,9 @@ import {
   IGuardian,
   ILocalGuardian,
   IStudent,
+  IStudentMethods,
   IUserName,
+  TStudentModel,
 } from "./student.interface";
 import config from "../../config";
 
@@ -80,7 +82,7 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
   },
 });
 
-const studentSchema = new Schema<IStudent>({
+const studentSchema = new Schema<IStudent, TStudentModel, IStudentMethods>({
   studentId: {
     type: String,
     required: true,
@@ -172,6 +174,11 @@ studentSchema.pre("findOne", function (next) {
   next();
 });
 
-const Student = model<IStudent>("Student", studentSchema);
+// mongoose custom instance method create
+studentSchema.methods.isUserExists = async function (email: string) {
+  const existingUser = await Student.findOne({ email });
+  return existingUser;
+};
 
+const Student = model<IStudent, TStudentModel>("Student", studentSchema);
 export default Student;

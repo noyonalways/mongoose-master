@@ -1,9 +1,15 @@
+import { customError } from "../../utils";
 import { IStudent } from "./student.interface";
 import Student from "./student.model";
 
-const create = (data: IStudent): Promise<IStudent> => {
-  const result = new Student({ ...data });
-  return result.save();
+const create = async (data: IStudent): Promise<IStudent> => {
+  const student = new Student({ ...data });
+
+  // mongoose custom instance method
+  if (await student.isUserExists(data.email))
+    throw customError(400, "Email already exists");
+
+  return student.save(); // built-in instance method
 };
 
 const getAll = (): Promise<IStudent[]> => {

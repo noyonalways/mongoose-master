@@ -55,7 +55,9 @@ const studentSchema = z.object({
     .min(6, "password must be at least 6 characters"),
   gender: z.enum(["male", "female", "other"]),
   dateOfBirth: z.string(),
-  email: z.string().email(),
+  email: z
+    .string({ message: "email is required" })
+    .email({ message: "provide a valid email address" }),
   contactNo: z.string(),
   emergencyContactNo: z.string(),
   bloodGroup: z

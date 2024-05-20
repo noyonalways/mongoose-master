@@ -1,3 +1,4 @@
+import { Model } from "mongoose";
 export interface IUserName {
   firstName: string;
   middleName?: string;
@@ -38,3 +39,13 @@ export interface IStudent {
   isActive?: "active" | "inactive";
   isDeleted?: boolean;
 }
+
+export interface IStudentMethods {
+  isUserExists(email: string): Promise<IStudent | null>;
+}
+
+export type TStudentModel = Model<
+  IStudent,
+  Record<string, never>,
+  IStudentMethods
+>;

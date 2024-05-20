@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import studentRoutes from "../modules/Student/student.route";
-import { CustomError } from "../types";
+import { TCustomError } from "../types";
 const router: Router = Router();
 
 router.get("/", (_req: Request, res: Response) => {
@@ -17,14 +17,14 @@ router.get("/health", (_req: Request, res: Response) => {
 router.use("/api/v1", studentRoutes);
 
 router.use((_req: Request, _res: Response, next: NextFunction) => {
-  const err: CustomError = new Error("Page not found");
+  const err: TCustomError = new Error("Page not found");
   err.status = 404;
   next(err);
 });
 
 router.use(
   (
-    error: CustomError,
+    error: TCustomError,
     _req: Request,
     res: Response,
     _next: NextFunction,
