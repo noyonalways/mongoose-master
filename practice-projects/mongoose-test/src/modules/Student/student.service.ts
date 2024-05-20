@@ -7,7 +7,7 @@ const create = (data: IStudent): Promise<IStudent> => {
 };
 
 const getAll = (): Promise<IStudent[]> => {
-  return Student.find({});
+  return Student.find({}).select("-password");
 };
 
 const findByProperty = (

@@ -32,6 +32,9 @@ const localGuardianSchema = z.object({
 const studentSchema = z.object({
   studentId: z.string(),
   name: userNameSchema,
+  password: z
+    .string({ message: "password is required" })
+    .min(6, "password must be at least 6 characters"),
   gender: z.enum(["male", "female", "other"]),
   dateOfBirth: z.string(),
   email: z.string().email(),

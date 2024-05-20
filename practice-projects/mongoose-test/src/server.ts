@@ -7,7 +7,7 @@ const server = http.createServer(app);
 
 async function main() {
   await mongoose
-    .connect(config.database as string, {
+    .connect(config.database_url as string, {
       serverSelectionTimeoutMS: 5000,
     })
     .then(() => {

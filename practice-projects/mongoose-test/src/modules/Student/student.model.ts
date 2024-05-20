@@ -1,10 +1,12 @@
 import { Schema, model } from "mongoose";
+import bcrypt from "bcrypt";
 import {
   IGuardian,
   ILocalGuardian,
   IStudent,
   IUserName,
 } from "./student.interface";
+import config from "../../config";
 
 const userNameSchema = new Schema<IUserName>({
   firstName: {
@@ -74,6 +76,11 @@ const studentSchema = new Schema<IStudent>({
     required: true,
     unique: true,
   },
+  password: {
+    type: String,
+    required: true,
+    minlength: [6, "password must be at least 6 characters"],
+  },
   name: {
     type: userNameSchema,
     required: true,
@@ -130,6 +137,18 @@ const studentSchema = new Schema<IStudent>({
     type: Boolean,
     default: false,
   },
+});
+
+// mongoose pre middleware for hashing the password
+studentSchema.pre("save", async function (next) {
+  this.password = await bcrypt.hash(this.password, Number(config.salt_rounds));
+  next();
+});
+
+// remove the password from the saved response
+studentSchema.post("save", function (doc, next) {
+  doc.password = "";
+  next();
 });
 
 // mongoose pre query middleware
