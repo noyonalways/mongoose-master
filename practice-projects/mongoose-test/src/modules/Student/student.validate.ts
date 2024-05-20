@@ -1,11 +1,29 @@
 import { z } from "zod";
 
+// Function to check if the first letter is capitalized
+// const isCapitalized = (str: string) => {
+//   if (typeof str !== "string" || str.length === 0) {
+//     return false;
+//   }
+//   return str.charAt(0) === str.charAt(0).toUpperCase();
+// };
+
+// Function to capitalize the first letter of a string
+const capitalize = (str: string) => {
+  if (typeof str !== "string" || str.length === 0) {
+    return "";
+  }
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
+
 // Define the Zod schema for IUserName
 const userNameSchema = z.object({
   firstName: z
     .string({ message: "firstName is required" })
     .min(3, "firstName must be more than 3 characters")
-    .max(20, "firstName can't be more than 20 characters"),
+    .max(20, "firstName can't be more than 20 characters")
+    .transform(capitalize),
+  // .refine(isCapitalized, { message: "firstName must be capitalized" })
   middleName: z.string().optional(),
   lastName: z.string().max(20, "lastName can't be more than 20 characters"),
 });
