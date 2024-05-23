@@ -40,12 +40,19 @@ export interface IStudent {
   isDeleted?: boolean;
 }
 
-export interface IStudentMethods {
+// for creating mongoose custom instance methods
+// export interface IStudentMethods {
+//   isUserExists(email: string): Promise<IStudent | null>;
+// }
+
+// for creating mongoose custom instance methods
+// export type TStudentModel = Model<
+//   IStudent,
+//   Record<string, never>,
+//   IStudentMethods
+// >;
+
+// for creating mongoose custom static methods
+export interface IStudentModel extends Model<IStudent> {
   isUserExists(email: string): Promise<IStudent | null>;
 }
-
-export type TStudentModel = Model<
-  IStudent,
-  Record<string, never>,
-  IStudentMethods
->;

@@ -4,9 +4,10 @@ import {
   IGuardian,
   ILocalGuardian,
   IStudent,
-  IStudentMethods,
+  IStudentModel,
   IUserName,
-  TStudentModel,
+  // IStudentMethods,
+  // TStudentModel,
 } from "./student.interface";
 import config from "../../config";
 
@@ -82,7 +83,7 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
   },
 });
 
-const studentSchema = new Schema<IStudent, TStudentModel, IStudentMethods>({
+const studentSchema = new Schema<IStudent, IStudentModel>({
   studentId: {
     type: String,
     required: true,
@@ -175,10 +176,16 @@ studentSchema.pre("findOne", function (next) {
 });
 
 // mongoose custom instance method create
-studentSchema.methods.isUserExists = async function (email: string) {
+// studentSchema.methods.isUserExists = async function (email: string) {
+//   const existingUser = await Student.findOne({ email });
+//   return existingUser;
+// };
+
+// mongoose custom static method create
+studentSchema.statics.isUserExists = async function (email: string) {
   const existingUser = await Student.findOne({ email });
   return existingUser;
 };
 
-const Student = model<IStudent, TStudentModel>("Student", studentSchema);
+const Student = model<IStudent, IStudentModel>("Student", studentSchema);
 export default Student;

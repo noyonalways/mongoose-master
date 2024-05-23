@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
     "start": "tsc && node ./dist/server.js",
-    "lint": "npx eslint src",
-    "lint:fix": "npx eslint src --fix",
-    "format": "prettier --ignore-path .gitignore --write \"./**/*.+(js|ts|json)\"",
-    "format:check": "npx prettier --check ./",
+    "lint": "npx eslint ./src",
+    "lint:fix": "npx eslint ./src --fix",
+    "format": "prettier ./ --write \"./**/*.+(js|ts|json)\"",
+    "format:check": "npx prettier ./ --check",
     "build": "tsc"
   },
   "keywords": [],
