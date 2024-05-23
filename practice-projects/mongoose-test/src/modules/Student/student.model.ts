@@ -83,74 +83,81 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
   },
 });
 
-const studentSchema = new Schema<IStudent, IStudentModel>({
-  studentId: {
-    type: String,
-    required: true,
-    unique: true,
+const studentSchema = new Schema<IStudent, IStudentModel>(
+  {
+    studentId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: [6, "password must be at least 6 characters"],
+    },
+    name: {
+      type: userNameSchema,
+      required: true,
+      trim: true,
+    },
+    gender: {
+      type: String,
+      enum: ["male", "female", "other"],
+      required: true,
+    },
+    dateOfBirth: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    contactNo: {
+      type: String,
+      required: true,
+    },
+    emergencyContactNo: {
+      type: String,
+      required: true,
+    },
+    bloodGroup: {
+      type: String,
+      enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
+    },
+    presentAddress: {
+      type: String,
+      required: true,
+    },
+    permanentAddress: {
+      type: String,
+      required: true,
+    },
+    guardian: guardianSchema,
+    localGuardian: {
+      type: localGuardianSchema,
+      required: true,
+    },
+    profileImage: {
+      type: String,
+    },
+    isActive: {
+      type: String,
+      enum: ["active", "inactive"],
+      default: "active",
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-    minlength: [6, "password must be at least 6 characters"],
+  {
+    toJSON: {
+      virtuals: true,
+    },
   },
-  name: {
-    type: userNameSchema,
-    required: true,
-    trim: true,
-  },
-  gender: {
-    type: String,
-    enum: ["male", "female", "other"],
-    required: true,
-  },
-  dateOfBirth: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  contactNo: {
-    type: String,
-    required: true,
-  },
-  emergencyContactNo: {
-    type: String,
-    required: true,
-  },
-  bloodGroup: {
-    type: String,
-    enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
-  },
-  presentAddress: {
-    type: String,
-    required: true,
-  },
-  permanentAddress: {
-    type: String,
-    required: true,
-  },
-  guardian: guardianSchema,
-  localGuardian: {
-    type: localGuardianSchema,
-    required: true,
-  },
-  profileImage: {
-    type: String,
-  },
-  isActive: {
-    type: String,
-    enum: ["active", "inactive"],
-    default: "active",
-  },
-  isDeleted: {
-    type: Boolean,
-    default: false,
-  },
-});
+);
 
 // mongoose pre middleware for hashing the password
 studentSchema.pre("save", async function (next) {
@@ -186,6 +193,12 @@ studentSchema.statics.isUserExists = async function (email: string) {
   const existingUser = await Student.findOne({ email });
   return existingUser;
 };
+
+// mongoose virtual method create
+// in options object we can pass virtuals:true to get virtual properties in json
+studentSchema.virtual("fullName").get(function () {
+  return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
+});
 
 const Student = model<IStudent, IStudentModel>("Student", studentSchema);
 export default Student;
